@@ -33,9 +33,10 @@ public class VendingMachine {
         return drawer.getProduct();
     }
 
-//    public void removeProduct(Drawer drawer){
-//        drawer.removeProduct();
-//    }
+    public int getPrice(Drawer drawer) {
+        return drawer.getPrice();
+    }
+
 
     public boolean checkCoinValid(Coin coin) {
         coinType type = coin.getType();
@@ -78,9 +79,15 @@ public class VendingMachine {
 
     public Product vend(Product product){
         coins.clear();
-
         return product;
+    }
 
+    public ArrayList<Coin> returnCoins(){
+        for (Coin coin: coins){
+            coinReturn.addCoin(coin);
+            coins.remove(coin);
+        }
+        return this.coinReturn.returnCoins();
     }
 
 }

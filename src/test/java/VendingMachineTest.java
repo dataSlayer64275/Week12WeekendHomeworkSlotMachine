@@ -56,8 +56,13 @@ public class VendingMachineTest {
     }
 
     @Test
-    public void canGetCorrectProductFromDrawers() {
+    public void canGetProductFromDrawers() {
         assertEquals(IrnBru, vendingMachine.getProduct(drawer1));
+    }
+
+    @Test
+    public void canGetPriceFromDrawers() {
+        assertEquals(60, vendingMachine.getPrice(drawer2));
     }
 
     @Test
@@ -72,7 +77,9 @@ public class VendingMachineTest {
     public void cannotAddInvalidCoins() {
         vendingMachine.addCoin(one);
         vendingMachine.addCoin(two);
-        assertEquals(2, vendingMachine.getCoinReturnNumberOfCoins());
+        vendingMachine.addCoin(one);
+        vendingMachine.addCoin(two);
+        assertEquals(4, vendingMachine.getCoinReturnNumberOfCoins());
     }
 
     @Test
@@ -80,7 +87,9 @@ public class VendingMachineTest {
         vendingMachine.addCoin(five);
         vendingMachine.addCoin(fifty);
         vendingMachine.addCoin(twenty);
+        assertEquals(75, vendingMachine.getTotalCoinValue());
         assertEquals(IrnBru, vendingMachine.buy(drawerCode.A1));
+        assertEquals(0, vendingMachine.getTotalCoinValue());
     }
 
     @Test
@@ -89,4 +98,13 @@ public class VendingMachineTest {
         assertEquals(null, vendingMachine.buy(drawerCode.C1));
     }
 
+    @Test
+    public void canReturnCoins() {
+        vendingMachine.addCoin(twenty);
+        vendingMachine.addCoin(fifty);
+        vendingMachine.addCoin(twenty);
+        assertEquals(90, vendingMachine.getTotalCoinValue());
+        vendingMachine.returnCoins();
+        assertEquals(0, vendingMachine.getTotalCoinValue());
+    }
 }
