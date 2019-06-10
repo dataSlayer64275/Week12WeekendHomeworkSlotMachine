@@ -93,6 +93,19 @@ public class VendingMachineTest {
     }
 
     @Test
+    public void canReturnChangeAfterBuyingProduct() {
+        vendingMachine.addCoin(five);
+        vendingMachine.addCoin(fifty);
+        vendingMachine.addCoin(twenty);
+        vendingMachine.addCoin(twenty);
+        assertEquals(95, vendingMachine.getTotalCoinValue());
+        assertEquals(CheeseAndOnion, vendingMachine.buy(drawerCode.B1));
+        assertEquals(0, vendingMachine.getTotalCoinValue());
+        assertEquals(1, vendingMachine.getCoinReturnNumberOfCoins());
+
+    }
+
+    @Test
     public void cannotBuyProductWithUnsufficientFunds() {
         vendingMachine.addCoin(fifty);
         assertEquals(null, vendingMachine.buy(drawerCode.C1));

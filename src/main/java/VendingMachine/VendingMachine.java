@@ -70,11 +70,17 @@ public class VendingMachine {
         for (Drawer drawer : drawers) {
             if (drawer.getCode() == code) {
                 if (drawer.getPrice() <= getTotalCoinValue()) {
+                    returnChange(drawer, getTotalCoinValue());
                     return vend(drawer.getProduct());
                 }
             }
         }
         return null;
+    }
+
+    public int returnChange(Drawer drawer, int amount){
+        int change = amount -= drawer.getPrice();
+        coinReturn.addCoin();
     }
 
     public Product vend(Product product){
@@ -83,7 +89,7 @@ public class VendingMachine {
     }
 
     public ArrayList<Coin> returnCoins(){
-        for (Coin coin: coins){
+        for (Coin coin: this.coins){
             coinReturn.addCoin(coin);
             coins.remove(coin);
         }
